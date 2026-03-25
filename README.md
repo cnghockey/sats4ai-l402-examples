@@ -38,7 +38,7 @@ See [examples/curl/](examples/curl/) for complete scripts.
 ### Python
 
 ```bash
-pip install requests bolt11
+pip install requests
 ```
 
 ```python
@@ -59,11 +59,8 @@ See [examples/python/](examples/python/) for all services.
 
 ### Node.js
 
-```bash
-npm install node-fetch
-```
-
 ```javascript
+// Node.js 18+ (built-in fetch, no dependencies needed)
 import { requestL402, completeL402 } from "./lib/l402-client.mjs";
 
 // Get invoice
@@ -89,7 +86,7 @@ See [examples/node/](examples/node/) for all services.
 | `animate-image` | Video from image (async) | 100 sats/sec |
 | `generate-music` | Music with AI vocals | 100 sats |
 | `text-to-speech` | Text to audio | 300 sats |
-| `transcribe-audio` | Audio to text | 10 sats/min |
+| `transcribe-audio` | Audio to text (async) | 10 sats/min |
 | `analyze-image` | Describe image content | 21 sats |
 | `generate-3d-model` | Photo to 3D GLB (async) | 350 sats |
 | `edit-image` | AI image editing | 200-450 sats |
@@ -122,7 +119,7 @@ GET https://sats4ai.com/api/l402/{service}           # Per-service metadata (GET
 
 ## Async Services
 
-Video, 3D, AI calls, and audiobook endpoints return `202 Accepted` with a `poll_url`:
+Video, 3D, transcription, AI calls, and audiobook endpoints return `202 Accepted` with a `poll_url`:
 
 ```json
 {
@@ -152,6 +149,8 @@ Authorization: Payment <base64url_json>
 Where the JSON is `{"challenge": {"id": "<chargeId>", "macaroon": "<base64>"}, "payload": {"preimage": "<hex>"}}`
 
 Both are returned in the `www-authenticate` header. Use whichever your client supports.
+
+**Token expiry:** L402 tokens are valid for **10 minutes** after the 402 response. Pay the invoice and submit your authorized request within that window.
 
 ## Pair with MCP
 

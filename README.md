@@ -1,6 +1,6 @@
 # sats4ai-l402-examples
 
-**Code examples for integrating with Sats4AI's L402 API — pay-per-use AI tools with Bitcoin Lightning.**
+**Code examples for integrating with Sats4AI's L402 API — 33+ pay-per-use AI tools with Bitcoin Lightning.**
 
 No signup. No API keys. No KYC. Just HTTP requests + Lightning payments.
 
@@ -78,6 +78,7 @@ See [examples/node/](examples/node/) for all services.
 
 ## Available Services
 
+### AI Generation
 | Endpoint | Description | Price |
 |----------|-------------|-------|
 | `generate-image` | Image from text prompt | 100-200 sats |
@@ -85,23 +86,47 @@ See [examples/node/](examples/node/) for all services.
 | `generate-video` | Video from text (async) | 300-550 sats/sec |
 | `animate-image` | Video from image (async) | 100 sats/sec |
 | `generate-music` | Music with AI vocals | 100 sats |
-| `text-to-speech` | Text to audio | 300 sats |
-| `transcribe-audio` | Audio to text (async) | 10 sats/min |
-| `analyze-image` | Describe image content | 21 sats |
 | `generate-3d-model` | Photo to 3D GLB (async) | 350 sats |
+| `translate-text` | Translate (119 languages) | ~1 sat/1000 chars |
+
+### Audio & Speech
+| Endpoint | Description | Price |
+|----------|-------------|-------|
+| `text-to-speech` | Text to audio (467 voices, 29 languages) | 300 sats |
+| `transcribe-audio` | Audio to text (async) | 10 sats/min |
+| `clone-voice` | Clone voice from audio | 7,500 sats |
+| `epub-audiobook` | Book to audiobook (async) | 500+ sats |
+
+### Image Processing
+| Endpoint | Description | Price |
+|----------|-------------|-------|
+| `remove-background` | Remove background, transparent PNG (BiRefNet) | 5 sats |
+| `upscale-image` | Upscale 2x/4x with Real-ESRGAN | 5 sats |
+| `restore-face` | Restore blurry/damaged faces (CodeFormer) | 5 sats |
+| `colorize-image` | Colorize B&W photos (DDColor) | 5 sats |
+| `deblur-image` | Remove camera-shake blur (NAFNet) | 20 sats |
+| `detect-nsfw` | Classify image safety | 2 sats |
+| `detect-objects` | Detect objects with bounding boxes | 5 sats |
+| `remove-object` | Remove objects by description — no mask | 15 sats |
 | `edit-image` | AI image editing | 200-450 sats |
-| `convert-file` | Convert between 200+ formats | 100 sats |
+
+### Vision & Documents
+| Endpoint | Description | Price |
+|----------|-------------|-------|
+| `analyze-image` | Describe image content | 21 sats |
 | `extract-document` | OCR (PDF/image to text) | 10 sats/page |
 | `extract-receipt` | Receipt to structured JSON | 50 sats |
+| `convert-file` | Convert between 200+ formats | 100 sats |
 | `merge-pdfs` | Merge PDFs into one | 100 sats |
 | `convert-html-to-pdf` | HTML/Markdown to PDF | 50 sats |
+
+### Communication
+| Endpoint | Description | Price |
+|----------|-------------|-------|
 | `send-email` | Send email to any address | 200 sats |
 | `send-sms` | SMS worldwide | varies |
 | `place-call` | Automated phone call | varies |
 | `ai-call` | AI voice agent call (async) | varies |
-| `clone-voice` | Clone voice from audio | 7,500 sats |
-| `translate-text` | Translate (119 languages) | ~1 sat/1000 chars |
-| `epub-audiobook` | Book to audiobook (async) | 500+ sats |
 
 **Free endpoints** (no payment required):
 - `GET /api/l402/models` — list all models and pricing
@@ -111,11 +136,21 @@ See [examples/node/](examples/node/) for all services.
 
 Machine-readable manifests for agents:
 
+```bash
+# Full service catalog with pricing, quality benchmarks, and performance metadata
+GET https://sats4ai.com/.well-known/l402-services
+
+# MCP tool catalog with latency (p50/p95), reliability, and failure modes
+GET https://sats4ai.com/api/mcp/discovery
+
+# Semantic search — find tools by capability
+GET https://sats4ai.com/api/discover?q=translate
+
+# Per-service metadata with enums and input schemas
+GET https://sats4ai.com/api/l402/{service}
 ```
-GET https://sats4ai.com/.well-known/l402-services   # Full service catalog
-GET https://sats4ai.com/api/l402/models              # Models + pricing
-GET https://sats4ai.com/api/l402/{service}           # Per-service metadata (GET)
-```
+
+Every paid service includes **performance metadata** (latency p50/p95, reliability rating, known failure modes) so agents can make informed routing decisions.
 
 ## Async Services
 
@@ -174,6 +209,7 @@ See the [MCP repo](https://github.com/cnghockey/sats4ai-mcp-server) for setup in
 - **L402 Docs**: [sats4ai.com/l402](https://sats4ai.com/l402)
 - **MCP Server**: [github.com/cnghockey/sats4ai-mcp-server](https://github.com/cnghockey/sats4ai-mcp-server)
 - **Service Discovery**: [sats4ai.com/.well-known/l402-services](https://sats4ai.com/.well-known/l402-services)
+- **Semantic Search**: [sats4ai.com/api/discover](https://sats4ai.com/api/discover)
 
 ## License
 

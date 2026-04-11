@@ -170,6 +170,30 @@ Video, 3D, transcription, AI calls, and audiobook endpoints return `202 Accepted
 
 Poll until `status` is `COMPLETED`, then read `result`.
 
+## Error Handling & Refunds
+
+All services use **prepaid billing** with instant invoice settlement. If a service fails after payment:
+
+- The error response includes a `refund` object with an `lnurl_withdraw` field
+- Claim the refund with any Lightning wallet that supports LNURL-withdraw
+- First 2 failures per 15-minute window: full refund. After that: 2 sat routing fee deducted.
+
+**Example error response:**
+```json
+{
+  "error": "Image generation failed",
+  "refund": {
+    "charge_id": 12345,
+    "refund_amount": 200,
+    "lnurl_withdraw": "lnurl1dp68gurn8ghj7..."
+  }
+}
+```
+
+**Claiming the refund:**
+- **CLI**: Paste the `lnurl_withdraw` value into any LNURL-compatible wallet
+- **Programmatic**: Decode the bech32 LNURL to get the callback URL, then follow the [LNURL-withdraw spec](https://github.com/lnurl/luds/blob/luds/03.md)
+
 ## Authentication Format
 
 **L402 scheme** (recommended):

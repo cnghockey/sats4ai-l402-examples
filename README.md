@@ -174,6 +174,7 @@ Poll until `status` is `COMPLETED`, then read `result`.
 
 All services use **prepaid billing** with instant invoice settlement. If a service fails after payment:
 
+- The error response includes an `error_code` field identifying the failure type
 - The error response includes a `refund` object with an `lnurl_withdraw` field
 - Claim the refund with any Lightning wallet that supports LNURL-withdraw
 - First 2 failures per 15-minute window: full refund. After that: 2 sat routing fee deducted.
@@ -181,14 +182,35 @@ All services use **prepaid billing** with instant invoice settlement. If a servi
 **Example error response:**
 ```json
 {
-  "error": "Image generation failed",
+  "error": "Image generation timed out",
+  "error_code": "TIMEOUT",
   "refund": {
     "charge_id": 12345,
     "refund_amount": 200,
-    "lnurl_withdraw": "lnurl1dp68gurn8ghj7..."
+    "lnurl_withdraw": "lnurl1dp68gurn8ghj7...",
+    "status": "pending"
   }
 }
 ```
+
+### Error Codes
+
+| Code | Meaning | Action |
+|------|---------|--------|
+| `TIMEOUT` | Service timed out | Retry later or try different model |
+| `CONTENT_FILTERED` | Safety filter triggered | Rephrase prompt |
+| `RATE_LIMITED` | Too many requests | Wait and retry |
+| `INVALID_INPUT` | Bad parameters | Fix request parameters |
+| `SERVICE_ERROR` | Service failure | Try different model |
+
+### Refund Object Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `charge_id` | number | ID of the original charge |
+| `refund_amount` | number | Amount in sats being refunded |
+| `lnurl_withdraw` | string | Bech32-encoded LNURL-withdraw link |
+| `status` | string | Refund status (`pending`, `claimed`, `expired`) |
 
 **Claiming the refund:**
 - **CLI**: Paste the `lnurl_withdraw` value into any LNURL-compatible wallet

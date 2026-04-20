@@ -137,8 +137,20 @@ See [examples/node/](examples/node/) for all services.
 Machine-readable manifests for agents:
 
 ```bash
-# Full service catalog with pricing, quality benchmarks, and performance metadata
+# OpenAPI 3.1 spec — generate typed clients, validate payloads, import
+# into Postman/Insomnia. L402 + MPP security schemes, error-code enum
+# on 4XX responses. Auto-synced from the L402 catalog.
+GET https://sats4ai.com/api/openapi.json
+
+# Full service catalog — each service now embeds `input_schema`
+# (JSON Schema Draft 2020-12) and `failure_codes` (mapped error codes).
 GET https://sats4ai.com/.well-known/l402-services
+
+# Plain-text LLM usage guide (llms.txt convention)
+GET https://sats4ai.com/llms.txt
+
+# Error code catalog
+GET https://sats4ai.com/api/error-codes
 
 # MCP tool catalog with latency (p50/p95), reliability, and failure modes
 GET https://sats4ai.com/api/mcp/discovery
@@ -150,7 +162,22 @@ GET https://sats4ai.com/api/discover?q=translate
 GET https://sats4ai.com/api/l402/{service}
 ```
 
-Every paid service includes **performance metadata** (latency p50/p95, reliability rating, known failure modes) so agents can make informed routing decisions.
+Every paid service includes **performance metadata** (latency p50/p95, reliability rating, known failure modes, mapped error codes) so agents can make informed routing decisions.
+
+### Generate a typed client from OpenAPI
+
+```bash
+# TypeScript
+npx @hey-api/openapi-ts -i https://sats4ai.com/api/openapi.json -o ./sats4ai
+
+# Python
+openapi-python-client generate --url https://sats4ai.com/api/openapi.json
+
+# Go
+oapi-codegen -package sats4ai https://sats4ai.com/api/openapi.json > sats4ai/client.go
+```
+
+The spec declares `L402` and `MPP` as HTTP security schemes, documents the 402 response + `WWW-Authenticate` shape, and enumerates every possible `error_code` on 4XX responses so your client gets typed error branches out of the box.
 
 ## Async Services
 
@@ -202,6 +229,15 @@ All services use **prepaid billing** with instant invoice settlement. If a servi
 | `RATE_LIMITED` | Too many requests | Wait and retry |
 | `INVALID_INPUT` | Bad parameters | Fix request parameters |
 | `SERVICE_ERROR` | Service failure | Try different model |
+| `L402_INVALID_PARAMS` | Pre-payment validation failed | Fix and resubmit — no invoice created |
+| `L402_UPSTREAM_FAILED` | Upstream failed after payment | Refund issued via LNURL-withdraw |
+| `L402_REFUND_ISSUED` | Response has a `refund` object | Claim LNURL-withdraw |
+| `L402_DEDUP_HIT` | Request served from dedup cache | No new payment required |
+| `L402_AUTO_ROUTED` | Routed via `model: 'auto'` | Chosen model in `X-Route-Model` header |
+| `L402_ESTIMATE_ONLY` | Price estimate from `/api/estimate-cost` | No invoice created |
+| `L402_CALLBACK_INVALID` | `callback_url` rejected | Must be public HTTPS |
+
+Full catalog: [`/api/error-codes`](https://sats4ai.com/api/error-codes). The `X-Error-Code` response header carries the same value as the body `error_code` — agents should branch on `error_code`, not the free-text message.
 
 ### Refund Object Fields
 
@@ -253,6 +289,8 @@ See the [MCP repo](https://github.com/cnghockey/sats4ai-mcp-server) for setup in
 
 - **Website**: [sats4ai.com](https://sats4ai.com)
 - **L402 Docs**: [sats4ai.com/l402](https://sats4ai.com/l402)
+- **OpenAPI 3.1 Spec**: [sats4ai.com/api/openapi.json](https://sats4ai.com/api/openapi.json)
+- **llms.txt**: [sats4ai.com/llms.txt](https://sats4ai.com/llms.txt)
 - **MCP Server**: [github.com/cnghockey/sats4ai-mcp-server](https://github.com/cnghockey/sats4ai-mcp-server)
 - **Service Discovery**: [sats4ai.com/.well-known/l402-services](https://sats4ai.com/.well-known/l402-services)
 - **Semantic Search**: [sats4ai.com/api/discover](https://sats4ai.com/api/discover)

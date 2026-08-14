@@ -82,17 +82,17 @@ See [examples/node/](examples/node/) for all services.
 | Endpoint | Description | Price |
 |----------|-------------|-------|
 | `generate-image` | Image from text prompt | 100-200 sats |
-| `generate-text` | AI chat / text completion | ~1 sat/100 chars |
+| `generate-text` | AI chat / text completion | ~10-1000 chars/sat (by tier) |
 | `generate-video` | Video from text (async) | 300-550 sats/sec |
 | `animate-image` | Video from image (async) | 100 sats/sec |
-| `generate-music` | Music with AI vocals | 100 sats |
-| `generate-3d-model` | Photo to 3D GLB (async) | 350 sats |
+| `generate-music` | Music with AI vocals | 500 sats |
+| `generate-3d-model` | Photo to 3D GLB (async) | 1,600 sats |
 | `translate-text` | Translate (119 languages) | ~1 sat/1000 chars |
 
 ### Audio & Speech
 | Endpoint | Description | Price |
 |----------|-------------|-------|
-| `text-to-speech` | Text to audio (467 voices, 29 languages) | 300 sats |
+| `text-to-speech` | Text to audio (602+ languages, 3 tiers) | ~90/13/7 chars/sat |
 | `transcribe-audio` | Audio to text (async) | 10 sats/min |
 | `clone-voice` | Clone voice from audio | 7,500 sats |
 | `epub-audiobook` | Book to audiobook (async) | 500+ sats |
@@ -100,14 +100,14 @@ See [examples/node/](examples/node/) for all services.
 ### Image Processing
 | Endpoint | Description | Price |
 |----------|-------------|-------|
-| `remove-background` | Remove background, transparent PNG (BiRefNet) | 5 sats |
+| `remove-background` | Remove background, transparent PNG (BiRefNet) | 44 sats |
 | `upscale-image` | Upscale 2x/4x with Real-ESRGAN | 5 sats |
-| `restore-face` | Restore blurry/damaged faces (CodeFormer) | 5 sats |
+| `restore-face` | Restore blurry/damaged faces (CodeFormer) | 25 sats |
 | `colorize-image` | Colorize B&W photos (DDColor) | 5 sats |
-| `deblur-image` | Remove camera-shake blur (NAFNet) | 20 sats |
+| `deblur-image` | Remove camera-shake blur (NAFNet) | 110 sats |
 | `detect-nsfw` | Classify image safety | 2 sats |
 | `detect-objects` | Detect objects with bounding boxes | 5 sats |
-| `remove-object` | Remove objects by description — no mask | 15 sats |
+| `remove-object` | Remove objects by description — no mask | 130 sats |
 | `edit-image` | AI image editing | 200-450 sats |
 
 ### Vision & Documents
@@ -115,7 +115,7 @@ See [examples/node/](examples/node/) for all services.
 |----------|-------------|-------|
 | `analyze-image` | Describe image content | 21 sats |
 | `extract-document` | OCR (PDF/image to text) | 10 sats/page |
-| `extract-receipt` | Receipt to structured JSON | 50 sats |
+| `extract-receipt` | Receipt to structured JSON | 25 sats/page |
 | `convert-file` | Convert between 200+ formats | 100 sats |
 | `merge-pdfs` | Merge PDFs into one | 100 sats |
 | `convert-html-to-pdf` | HTML/Markdown to PDF | 50 sats |
@@ -126,7 +126,7 @@ See [examples/node/](examples/node/) for all services.
 | `send-email` | Send email to any address | 200 sats |
 | `send-sms` | SMS worldwide | varies |
 | `place-call` | Automated phone call | varies |
-| `ai-call` | AI voice agent call (async) | varies |
+| `ai-call` | AI voice agent call (async) | from ~200 sats/min |
 
 **Free endpoints** (no payment required):
 - `GET /api/l402/models` — list all models and pricing

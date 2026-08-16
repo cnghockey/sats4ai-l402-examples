@@ -83,8 +83,8 @@ See [examples/node/](examples/node/) for all services.
 |----------|-------------|-------|
 | `generate-image` | Image from text prompt | 100-200 sats |
 | `generate-text` | AI chat / text completion | ~10-1000 chars/sat (by tier) |
-| `generate-video` | Video from text (async) | 300-550 sats/sec |
-| `animate-image` | Video from image (async) | 100 sats/sec |
+| `generate-video` | Video from text (async) | 250-400 sats/sec (768p 250 / 2K 400) |
+| `animate-image` | Video from image (async) | 250-400 sats/sec (768p 250 / 2K 400) |
 | `generate-music` | Music with AI vocals | 500 sats |
 | `generate-3d-model` | Photo to 3D GLB (async) | 1,600 sats |
 | `translate-text` | Translate (119 languages) | ~1 sat/1000 chars |

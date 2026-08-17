@@ -92,7 +92,7 @@ See [examples/node/](examples/node/) for all services.
 ### Audio & Speech
 | Endpoint | Description | Price |
 |----------|-------------|-------|
-| `text-to-speech` | Text to audio (602+ languages, 3 tiers) | ~90/13/7 chars/sat |
+| `text-to-speech` | Text to audio (602+ languages, 3 tiers) | ~88/13/4 chars/sat |
 | `transcribe-audio` | Audio to text (async) | 10 sats/min |
 | `clone-voice` | Clone voice from audio | 7,500 sats |
 | `epub-audiobook` | Book to audiobook (async) | 500+ sats |

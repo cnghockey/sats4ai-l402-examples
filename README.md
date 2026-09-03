@@ -88,6 +88,7 @@ See [examples/node/](examples/node/) for all services.
 | `generate-music` | Music with AI vocals | 500 sats |
 | `generate-3d-model` | Photo to 3D GLB (async) | 1,600 sats |
 | `translate-text` | Translate (119 languages) | from 1 sat/1000 chars |
+| `translate-epub` | Translate a whole EPUB into another language — EPUB in, EPUB out, markup intact (async) | per character on the target language's engine rate, min 50 sats |
 
 > **Translation price varies by language.** The target language picks the engine, so a language
 > served by a stronger model costs more than the standard 1 sat/1000 characters. `GET /api/languages`

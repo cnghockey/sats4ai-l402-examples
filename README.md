@@ -87,7 +87,13 @@ See [examples/node/](examples/node/) for all services.
 | `animate-image` | Video from image (async) | 250-400 sats/sec (768p 250 / 2K 400) |
 | `generate-music` | Music with AI vocals | 500 sats |
 | `generate-3d-model` | Photo to 3D GLB (async) | 1,600 sats |
-| `translate-text` | Translate (119 languages) | ~1 sat/1000 chars |
+| `translate-text` | Translate (119 languages) | from 1 sat/1000 chars |
+
+> **Translation price varies by language.** The target language picks the engine, so a language
+> served by a stronger model costs more than the standard 1 sat/1000 characters. `GET /api/languages`
+> returns the exact price, the model and its measured chrF score for every language, and the 402
+> challenge always quotes the real amount before you pay.
+
 
 ### Audio & Speech
 | Endpoint | Description | Price |

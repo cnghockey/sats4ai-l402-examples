@@ -35,6 +35,26 @@ curl -X POST https://sats4ai.com/api/l402/generate-image \
 
 See [examples/curl/](examples/curl/) for complete scripts.
 
+### lnget (auto-pays)
+
+[lnget](https://github.com/lightninglabs/lnget) is Lightning Labs' L402 client: it sees the 402, pays the invoice from your node, retries with the proof, and caches the token — one command instead of three.
+
+```bash
+go install github.com/lightninglabs/lnget/cmd/lnget@latest
+
+lnget -X POST https://sats4ai.com/api/l402/generate-image \
+  -H "Content-Type: application/json" \
+  -d '{"input": {"prompt": "a cat in space"}}'
+```
+
+**Spend cap.** lnget refuses any invoice above its default per-request cap on *your* side, after the 402 and before paying — the server never sees it, so a dearer service silently fails to run. For those, pass `--max-cost <sats>` (or `lnget config set l402.max_cost_sats <sats>`). The current cap, the services priced above it, and the metered services that can exceed it are published live, so you can budget before the first call:
+
+```bash
+curl -s https://sats4ai.com/.well-known/l402 | jq .authentication.client_spend_cap
+```
+
+Sats4AI tokens are bound to one service and one quantity and expire in 10 minutes; when lnget's per-domain cached token is rejected, it pays the fresh invoice on its own — one extra round-trip, never a failure.
+
 ### Python
 
 ```bash

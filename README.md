@@ -134,6 +134,7 @@ See [examples/node/](examples/node/) for all services.
 | `deblur-image` | Remove camera-shake blur (NAFNet) | 110 sats |
 | `detect-nsfw` | Classify image safety | 2 sats |
 | `detect-objects` | Detect objects with bounding boxes | 5 sats |
+| `render-card` | Typographic title card (PNG/JPEG), deterministic layout | 5 sats |
 | `remove-object` | Remove objects by description — no mask | 130 sats |
 | `edit-image` | AI image editing | 200-450 sats |
 

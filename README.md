@@ -105,7 +105,7 @@ See [examples/node/](examples/node/) for all services.
 | `generate-text` | AI chat / text completion | ~10-1000 chars/sat (by tier) |
 | `generate-video` | Video from text (async) | 250-400 sats/sec (768p 250 / 2K 400) |
 | `animate-image` | Video from image (async) | 250-400 sats/sec (768p 250 / 2K 400) |
-| `generate-music` | Music with AI vocals | 500 sats |
+| `generate-music` | Music with AI vocals, or an instrumental (structure tags, no words) | 5 sats/sec (75-1,500; 15-300s) |
 | `generate-3d-model` | Photo to 3D GLB (async) | 1,600 sats |
 | `translate-text` | Translate (119 languages) | from 1 sat/1000 chars |
 | `translate-epub` | Translate a whole EPUB into another language — EPUB in, EPUB out, markup intact (async) | per character on the target language's engine rate, min 50 sats |

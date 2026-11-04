@@ -323,6 +323,17 @@ See the [MCP repo](https://github.com/cnghockey/sats4ai-mcp-server) for setup in
 - **Service Discovery**: [sats4ai.com/.well-known/l402-services](https://sats4ai.com/.well-known/l402-services)
 - **Semantic Search**: [sats4ai.com/api/discover](https://sats4ai.com/api/discover)
 
+## Support / donate
+HTTP 402 "Payment Required" sat unused for decades. We are happy to give it a job.
+
+If this was useful to you and you like what we do, consider sending a few sats our way:
+
+⚡ **`sats4ai@blink.sv`**
+
+(It's a **Bitcoin Lightning** address: pay it from any Lightning wallet. Looks like an email, isn't one. Lightning sats only: no on-chain, no fiat, no cards, no altcoins, no refunds on gratitude.)
+
+Not this time? That's cool too. We've been there. A star on the repo is a free hug.
+
 ## License
 
 MIT

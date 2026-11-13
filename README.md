@@ -322,6 +322,7 @@ See the [MCP repo](https://github.com/cnghockey/sats4ai-mcp-server) for setup in
 - **MCP Server**: [github.com/cnghockey/sats4ai-mcp-server](https://github.com/cnghockey/sats4ai-mcp-server)
 - **Service Discovery**: [sats4ai.com/.well-known/l402-services](https://sats4ai.com/.well-known/l402-services)
 - **Semantic Search**: [sats4ai.com/api/discover](https://sats4ai.com/api/discover)
+- **More from us**: [Wandless VR Video Player](https://github.com/cnghockey/wandless-vr-video-player) · [VLC for Android subtitle fix](https://github.com/cnghockey/vlc-android-subtitle-url-fix) · [Bestway Spa Relay](https://github.com/cnghockey/bestway-spa-relay) · [EvoStart Car Relay](https://github.com/cnghockey/evo-start-relay)
 
 ## Support / donate
 HTTP 402 "Payment Required" sat unused for decades. We are happy to give it a job.

@@ -1,7 +1,7 @@
 #!/bin/bash
 # Send an SMS using Sats4AI L402 API
 #
-# Usage: ./send-sms.sh "+14155552671" "Hello from Sats4AI"
+# Usage: ./send-sms.sh "+14155550123" "Hello from Sats4AI"
 
 set -euo pipefail
 
